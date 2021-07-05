@@ -1,5 +1,5 @@
 pipeline {
-  agent {
+/*  agent {
     kubernetes {
       yaml """
 apiVersion: v1
@@ -28,7 +28,7 @@ spec:
     tty: true
 """
 }
-  }
+  } */
   stages {
     stage('Test Alpine') {
       steps {
