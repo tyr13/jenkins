@@ -1,35 +1,5 @@
 pipeline {
-    agent { any }
-/*  agent {
-    kubernetes {
-      yaml """
-apiVersion: v1
-kind: Pod
-metadata:
-labels:
-  component: ci
-spec:
-  # Use service account that can deploy to all namespaces
-  serviceAccountName: jenkins
-  containers:
-  - name: alpine
-    image: alpine:latest
-    command:
-    - cat
-    tty: true
-  - name: alpine2
-    image: alpine:latest
-    command:
-    - cat
-    tty: true
-  - name: alpine3
-    image: alpine:latest
-    command:
-    - cat
-    tty: true
-"""
-}
-  } */
+    agent any
   stages {
     stage('Test Alpine') {
       steps {
