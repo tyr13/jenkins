@@ -1,27 +1,38 @@
 pipeline {
   agent any
+
   stages {
-    stage('Test Alpine') {
+    stage("Build") {
       steps {
-        container('alpine') {
-          sh """
-            echo Alpine
-          """
+        sh 'mvn -v'
+      }
+    }
+
+    stage("Testing") {
+      parallel {
+        stage("Unit Tests") {
+          agent { docker 'openjdk:7-jdk-alpine' }
+          steps {
+            sh 'java -version'
+          }
+        }
+        stage("Functional Tests") {
+          agent { docker 'openjdk:8-jdk-alpine' }
+          steps {
+            sh 'java -version'
+          }
+        }
+        stage("Integration Tests") {
+          steps {
+            sh 'java -version'
+          }
         }
       }
     }
-    stage('Test Alpine2') {
+
+    stage("Deploy") {
       steps {
-        container('alpine2') {
-          sh "echo Alpine2"
-        }
-      }
-    }
-    stage('Test Alpine3') {
-      steps {
-        container('alpine3') {
-          sh("echo Alpine3")
-        }
+        echo "Deploy!"
       }
     }
   }
